@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+
+.streamlit/secrets.toml
+
+data/analyst_feedback.json
+data/online_samples.json
+data/scan_history.json
+data/threat_intel_cache.json

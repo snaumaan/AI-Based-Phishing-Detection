@@ -1,0 +1,59 @@
+[
+  {
+    "signature_id": "SIG_001",
+    "name": "Direct IP Hosting with Insecure HTTP",
+    "features": [
+      "has_ip_host",
+      "no_https",
+      "urgent_word_count"
+    ],
+    "severity": "CRITICAL",
+    "first_detected": "2026-11-01",
+    "mitigation": "Block direct IP URL navigation; enforce HTTPS."
+  },
+  {
+    "signature_id": "SIG_002",
+    "name": "IDN Punycode Homograph Spoofing",
+    "features": [
+      "has_punycode",
+      "credential_word_count"
+    ],
+    "severity": "HIGH",
+    "first_detected": "2026-11-03",
+    "mitigation": "Flag xn-- prefixes in email clients; display decoded Unicode."
+  },
+  {
+    "signature_id": "SIG_003",
+    "name": "High-Abuse Disposable TLD with Urgency",
+    "features": [
+      "suspicious_tld",
+      "urgency_word_count",
+      "subdomain_depth"
+    ],
+    "severity": "HIGH",
+    "first_detected": "2026-11-04",
+    "mitigation": "Enforce reputation check on .xyz, .top, .buzz TLDs."
+  },
+  {
+    "signature_id": "SIG_004",
+    "name": "Cross-Origin Form Credential Harvesting",
+    "features": [
+      "password_field_count",
+      "cross_origin_form"
+    ],
+    "severity": "CRITICAL",
+    "first_detected": "2026-11-06",
+    "mitigation": "Enforce Content-Security-Policy (CSP) form-action headers."
+  },
+  {
+    "signature_id": "SIG_005",
+    "name": "Mismatched Anchor Display Spoofing",
+    "features": [
+      "href_anchor_mismatch",
+      "suspicious_word_count"
+    ],
+    "severity": "HIGH",
+    "first_detected": "2026-11-08",
+    "mitigation": "Inspect href destinations independently of anchor text."
+  }
+]

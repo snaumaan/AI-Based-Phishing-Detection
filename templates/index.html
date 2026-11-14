@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhishGuard</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ===== SIDEBAR ===== -->
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">PG</span>
+      <div>
+        <div class="brand-name">PhishGuard</div>
+        <div class="brand-sub">Detection Engine </div>
+      </div>
+    </div>
+
+    <ul class="nav-list">
+      <li class="nav-item active" data-view="scanner">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <path
+            d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18" />
+        </svg>
+        Scanner
+      </li>
+      <li class="nav-item" data-view="batch">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 10h16M4 14h10" />
+        </svg>
+        Batch Analysis
+      </li>
+      <li class="nav-item" data-view="history">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 6v6l4 2" />
+        </svg>
+        Scan History
+      </li>
+      <li class="nav-item" data-view="metrics">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <path d="M3 3v18h18" />
+          <path d="M7 16l4-4 4 4 4-6" />
+        </svg>
+        Model Metrics
+      </li>
+      <li class="nav-item" data-view="intel">
+        <svg class="nav-icon" viewBox="0 0 24 24">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        Threat Intel
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main-content">
+
+    <!-- ========== SCANNER ========== -->
+    <section id="view-scanner" class="view active">
+      <div class="page-header">
+        <h1>Content Scanner</h1>
+        <p>Paste a URL or email text to analyze.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-toolbar">
+          <div class="toolbar-left">
+            <label class="form-label" for="input-type">Vector Type</label>
+            <select id="input-type" class="select-box">
+              <option value="auto">Auto-detect</option>
+              <option value="URL">URL</option>
+              <option value="email">Email / Text</option>
+            </select>
+          </div>
+          <div class="toolbar-right">
+            <button class="btn btn-sm btn-ghost" onclick="loadSample('URL')">Sample URL</button>
+            <button class="btn btn-sm btn-ghost" onclick="loadSample('email')">Sample Email</button>
+            <button class="btn btn-sm btn-ghost" onclick="clearScanInput()">Clear</button>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 14px;">
+          <label class="form-label" for="scan-input">Content to Analyze</label>
+          <textarea id="scan-input" class="text-input" rows="6"
+            placeholder="Paste URL or email text here (any format: body, headers, raw text)..."></textarea>
+        </div>
+
+        <div class="row-end" style="margin-top: 14px;">
+          <button class="btn btn-primary" onclick="runScan()">Analyze Content</button>
+        </div>
+      </div>
+
+      <div id="scan-result" class="hidden">
+        <!-- filled by JS -->
+      </div>
+    </section>
+
+    <!-- ========== BATCH ========== -->
+    <section id="view-batch" class="view hidden">
+      <div class="page-header">
+        <h1>Batch Analysis</h1>
+        <p>Analyze multiple inputs at once — one per line.</p>
+      </div>
+
+      <div class="card">
+        <textarea id="batch-input" class="text-input" rows="8"
+          placeholder="Enter one URL or text per line..."></textarea>
+        <div class="row-end">
+          <button class="btn btn-primary" onclick="runBatch()">Run Batch</button>
+        </div>
+      </div>
+
+      <div id="batch-result" class="hidden"></div>
+    </section>
+
+    <!-- ========== HISTORY ========== -->
+    <section id="view-history" class="view hidden">
+      <div class="page-header">
+        <h1>Scan History</h1>
+        <p>Recent detections stored locally.</p>
+      </div>
+      <div class="card">
+        <div class="row-end" style="margin-bottom:12px">
+          <button class="btn btn-secondary" onclick="loadHistory()">Refresh</button>
+        </div>
+        <div id="history-table"></div>
+      </div>
+    </section>
+
+    <!-- ========== METRICS ========== -->
+    <section id="view-metrics" class="view hidden">
+      <div class="page-header">
+        <h1>Model Metrics</h1>
+        <p>Benchmark evaluation across classifiers.</p>
+      </div>
+      <div id="metrics-content">
+        <div class="card">
+          <p class="muted">Loading...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== INTEL ========== -->
+    <section id="view-intel" class="view hidden">
+      <div class="page-header">
+        <h1>Threat Intel Cache</h1>
+        <p>Offline domain reputation database.</p>
+      </div>
+      <div class="card">
+        <div id="intel-table"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="/static/js/main.js"></script>
+</body>
+
+</html>
